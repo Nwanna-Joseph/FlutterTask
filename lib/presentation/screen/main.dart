@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:taskit/presentation/controller/TasksController.dart';
 import 'package:taskit/presentation/screen/tasklist_widget.dart';
 import 'package:taskit/storage/fixed_data.dart';
+import 'package:get/get.dart';
+
 void main() {
+
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+
+
   const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
@@ -32,7 +38,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: TaskListWidget(tasks: sampleTasks),
+      home: TaskListWidget(),
     );
   }
 }
