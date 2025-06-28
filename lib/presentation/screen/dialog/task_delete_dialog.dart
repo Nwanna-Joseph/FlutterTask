@@ -36,17 +36,13 @@ class ConfirmDialog extends StatelessWidget {
   }
 }
 
-showActionDialog(){
-// showDialog(context: context, builder: (context) => ConfirmDialog(
-// title: 'Delete Task',
-// description: 'Are you sure you want to delete this task?',
-// onConfirm: () {
-// // Do something, like deleting a task
-// print('Confirmed!');
-// },
-// ),
-// );
+showDeleteDialog(BuildContext context, VoidCallback onDelete) {
+  showDialog(
+    context: context,
+    builder: (context) => ConfirmDialog(
+      title: 'Delete Task',
+      description: 'Are you sure you want to delete this task?',
+      onConfirm: onDelete,
+    ),
+  );
 }
-
-
-

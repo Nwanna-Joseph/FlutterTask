@@ -10,7 +10,7 @@ class TaskRepository {
     }
 
     Future addTask(TaskItem task){
-        return storageService.write(key: task.id, value: "");
+        return storageService.write(key: task.id, value: task.toJson() );
     }
 
     Future removeTask(TaskItem task){
@@ -18,7 +18,7 @@ class TaskRepository {
     }
 
     Future editTasks(TaskItem task){
-        return storageService.write(key: task.id, value: "");
+        return storageService.write(key: task.id, value: task.toJson() );
     }
 
 }

@@ -14,6 +14,11 @@ class MyApp extends StatelessWidget {
 
   const MyApp({super.key});
 
+  init(){
+    Get.changeTheme(ThemeData.dark());
+    // Get.changeTheme(ThemeData.light());
+  }
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {

@@ -3,16 +3,18 @@ import 'package:get/get.dart';
 import 'package:taskit/data/task_item.dart';
 import 'package:taskit/presentation/controller/TasksController.dart';
 
-class AddTaskForm extends StatefulWidget {
+class EditTaskForm extends StatefulWidget {
 
-  const AddTaskForm();
+  TaskItem taskItem;
+
+  EditTaskForm(this.taskItem, {super.key});
 
   @override
-  _AddTaskFormState createState() => _AddTaskFormState();
+  createState() => _EditTaskFormState();
 
 }
 
-class _AddTaskFormState extends State<AddTaskForm> {
+class _EditTaskFormState extends State<EditTaskForm> {
 
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _titleController = TextEditingController();
@@ -21,14 +23,15 @@ class _AddTaskFormState extends State<AddTaskForm> {
   final TasksController tasksController = Get.find();
 
   init(){
-    _titleController.text = "Simple Title";
-    _noteController.text = "Simple Note";
+    _titleController.text = widget.taskItem.title ?? "";
+    _noteController.text = widget.taskItem.note ?? "";
+    _selectedDate = widget.taskItem.dueDate ?? DateTime.now();
   }
 
   Future<void> _pickDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: _selectedDate,
+      initialDate: _selectedDate ,
       firstDate: DateTime(2000),
       lastDate: DateTime(2100),
     );
@@ -47,23 +50,29 @@ class _AddTaskFormState extends State<AddTaskForm> {
       final date = _selectedDate;
 
       // You can now use `title` and `date` to create a task
-      print("Task Added: $title on $date");
+      print("Task Modified: $title on $date");
 
-      tasksController.addTask(TaskItem(
-          id: DateTime.now().toString(),
+      tasksController.editTask(TaskItem(
+          id: widget.taskItem.id,
           title: title,
           note: note,
           dueDate: date,
-          createdOn: DateTime.now(),
-          completedStatus: false)
+          createdOn: widget.taskItem.createdOn,
+          completedStatus: false )
       );
-
+      Get.back();
     } else {
       // Show some error if date is not selected
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Please complete all fields')),
       );
     }
+  }
+
+  void markAsCompleted(){
+    widget.taskItem.completedStatus = true;
+    tasksController.editTask(widget.taskItem);
+    Get.back();
   }
 
   @override
@@ -116,7 +125,13 @@ class _AddTaskFormState extends State<AddTaskForm> {
             // Submit Button
             ElevatedButton(
               onPressed: _submitForm,
-              child: const Text('Save Task to Device'),
+              child: const Text('Save Update to Device'),
+            ),
+            const SizedBox(height: 24),
+
+            ElevatedButton(
+              onPressed: _submitForm,
+              child: const Text('Mark task as Completed'),
             ),
           ],
         ),
@@ -125,6 +140,6 @@ class _AddTaskFormState extends State<AddTaskForm> {
   }
 }
 
-showAddDialog(BuildContext context){
-  showDialog(context: context, builder: (context) => const AddTaskForm());
+showEditDialog(BuildContext context, TaskItem taskItem){
+  showDialog(context: context, builder: (context) => EditTaskForm(taskItem));
 }
