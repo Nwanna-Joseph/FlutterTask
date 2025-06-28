@@ -14,6 +14,23 @@ class TasksController extends GetxController {
 
   Rx<SortAndFilterParams> sortAndFilterParams = SortAndFilterParams().obs;
 
+  @override
+  void onReady() {
+    fetchTasksFromDevice();
+    // TODO: implement onReady
+    super.onReady();
+
+  }
+
+  @override
+  void onInit() {
+    // fetchTasksFromDevice();
+    // TODO: implement onInit
+    super.onInit();
+
+  }
+
+
   void addTask(TaskItem taskItem) async {
     await tasksRepository.addTask(taskItem);
     fetchTasksFromDevice();
@@ -52,6 +69,7 @@ class TasksController extends GetxController {
 
     }).toList();
 
+
     if(sortAndFilterParams.sortCreationDate != null){
       filter.sort( (taskA, taskB) {
           if(sortAndFilterParams.sortCreationDate == true){
@@ -72,15 +90,17 @@ class TasksController extends GetxController {
       } );
     }
 
-
+    print("Post filter ${filter.length}");
     filteredAndSortedResults.value = filter;
   }
 
   Future<void> fetchTasksFromDevice() async {
     var tasksJson = await tasksRepository.getTasks();
-    print(tasksJson);
+    print("tasksJson : ${tasksJson}");
     tasks = List<TaskItem>.from(
         tasksJson.keys.map((key) => TaskItem.fromJson(tasksJson[key] ?? "{}")));
-    sortAndFilter(sortAndFilterParams.value);
+    filteredAndSortedResults.value = tasks;
+    // sortAndFilter(sortAndFilterParams.value);
   }
+
 }

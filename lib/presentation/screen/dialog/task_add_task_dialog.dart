@@ -5,7 +5,9 @@ import 'package:taskit/presentation/controller/TasksController.dart';
 
 class AddTaskForm extends StatefulWidget {
 
-  const AddTaskForm();
+   TasksController tasksController = Get.find();
+
+   AddTaskForm();
 
   @override
   _AddTaskFormState createState() => _AddTaskFormState();
@@ -68,57 +70,59 @@ class _AddTaskFormState extends State<AddTaskForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Form(
-        key: _formKey,
-        child: Column(
-          children: [
-            // Title Input
-            TextFormField(
-              controller: _titleController,
-              decoration: const InputDecoration(labelText: 'Task Title'),
-              validator: (value) =>
-              value == null || value.isEmpty ? 'Enter a title' : null,
-            ),
-            const SizedBox(height: 16),
-
-            TextFormField(
-              controller: _noteController,
-              decoration: const InputDecoration(labelText: 'Note Attachment:'),
-              validator: (value) =>
-              value == null || value.isEmpty ? 'Add a note:' : null,
-            ),
-            const SizedBox(height: 16),
-
-            // Date Picker
-            InkWell(
-              onTap: () => _pickDate(context),
-              child: InputDecorator(
-                decoration: InputDecoration(
-                  labelText: 'Select Date',
-                  border: OutlineInputBorder(),
-                ),
-                child: Text(
-                  _selectedDate != null
-                      ? "${_selectedDate!.toLocal()}".split(' ')[0]
-                      : 'No date selected',
-                  style: TextStyle(
-                    color: _selectedDate != null
-                        ? Colors.black87
-                        : Colors.grey[600],
+    return Material(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              // Title Input
+              TextFormField(
+                controller: _titleController,
+                decoration: const InputDecoration(labelText: 'Task Title'),
+                validator: (value) =>
+                value == null || value.isEmpty ? 'Enter a title' : null,
+              ),
+              const SizedBox(height: 16),
+      
+              TextFormField(
+                controller: _noteController,
+                decoration: const InputDecoration(labelText: 'Note Attachment:'),
+                validator: (value) =>
+                value == null || value.isEmpty ? 'Add a note:' : null,
+              ),
+              const SizedBox(height: 16),
+      
+              // Date Picker
+              InkWell(
+                onTap: () => _pickDate(context),
+                child: InputDecorator(
+                  decoration: InputDecoration(
+                    labelText: 'Select Date',
+                    border: OutlineInputBorder(),
+                  ),
+                  child: Text(
+                    _selectedDate != null
+                        ? "${_selectedDate!.toLocal()}".split(' ')[0]
+                        : 'No date selected',
+                    style: TextStyle(
+                      color: _selectedDate != null
+                          ? Colors.black87
+                          : Colors.grey[600],
+                    ),
                   ),
                 ),
               ),
-            ),
-            const SizedBox(height: 24),
-
-            // Submit Button
-            ElevatedButton(
-              onPressed: _submitForm,
-              child: const Text('Save Task to Device'),
-            ),
-          ],
+              const SizedBox(height: 24),
+      
+              // Submit Button
+              ElevatedButton(
+                onPressed: _submitForm,
+                child: const Text('Save Task to Device'),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -126,5 +130,5 @@ class _AddTaskFormState extends State<AddTaskForm> {
 }
 
 showAddDialog(BuildContext context){
-  showDialog(context: context, builder: (context) => const AddTaskForm());
+  showDialog(context: context, builder: (context) => AddTaskForm());
 }

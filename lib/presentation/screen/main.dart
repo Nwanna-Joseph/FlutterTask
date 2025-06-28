@@ -6,16 +6,16 @@ import 'package:get/get.dart';
 
 void main() {
 
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
 
-
-  const MyApp({super.key});
+  TasksController tasksController = Get.put(TasksController());
+  MyApp({super.key});
 
   init(){
-    Get.changeTheme(ThemeData.dark());
+    // Get.changeTheme(ThemeData.dark());
     // Get.changeTheme(ThemeData.light());
   }
 

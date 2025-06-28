@@ -27,12 +27,12 @@ class TaskItem {
 
   String toJson(){
     return jsonEncode({
-      id: id,
-      title: title,
-      note: note,
-      dueDate: dueDate,
-      createdOn: createdOn,
-      completedStatus: completedStatus,
+      "id": id,
+      "title": title,
+      "note": note,
+      "dueDate": dueDate.toIso8601String(),
+      "createdOn": createdOn.toIso8601String(),
+      "completedStatus": completedStatus,
     });
   }
 
@@ -42,8 +42,8 @@ class TaskItem {
         id: map["id"],
         title: map["title"],
         note: map["note"],
-        dueDate: map["dueDate"],
-        createdOn: map["createdOn"],
+        dueDate: DateTime.parse(map["dueDate"]),
+        createdOn: DateTime.parse(map["createdOn"]),
         completedStatus: map["completedStatus"],
     );
   }
@@ -58,5 +58,7 @@ class SortAndFilterParams{
 
     bool? sortDueDate;
     bool? sortCreationDate;
+
+    SortAndFilterParams({this.filterCompleteStatus, this.sortDueDate, this.sortCreationDate });
 
 }

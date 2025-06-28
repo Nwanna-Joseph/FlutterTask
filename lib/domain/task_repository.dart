@@ -6,7 +6,8 @@ class TaskRepository {
     static const storageService = FlutterSecureStorage();
 
     Future<Map<String, String>> getTasks(){
-        return storageService.readAll();
+        return storageService.readAll(
+        );
     }
 
     Future addTask(TaskItem task){
