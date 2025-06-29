@@ -152,11 +152,15 @@ This project follows a clean layered architecture divided into three main layers
 * Easy to replace storage (e.g., switch to Firebase or SQLite) with zero UI changes.
 
 ### Beyond Requirements: 
-Testing the APK on multiple devices using firebase Test Lab
+Testing the APK on multiple devices using firebase Test Lab:
 * I ran and tested the APK on firebase test lab. This allowed me to test on a variety of devices virtual and real devices
 * I tested different device layouts, lifecycle changes, ANR, memory constraints and on slow devices.
 * After running, the reports were sent to my email.
 
 #### Image 1 (Email report after running first tests):
 ![a.png](imgs%2Fa.png)
+
+#### Image 2 (Report from my firebase console):
 ![b.png](imgs%2Fb.png)
+
+

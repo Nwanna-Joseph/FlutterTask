@@ -17,7 +17,6 @@ class TaskCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
       ),
@@ -70,60 +69,45 @@ class TaskCard extends StatelessWidget {
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.onSurface,
                     fontSize: 12,
-                    fontWeight: FontWeight.w100,
+                    fontWeight: FontWeight.w300,
                   ),
                 ),
                 Expanded(child: SizedBox()),
                 Wrap(
                   spacing: 0,
                   children: [
-                    TextButton.icon(
-                      onPressed: onEdit,
-                      // icon: const Icon(Icons.filter_list, size: 16),
-                      label: Text(
-                        'Edit',
-                        style: TextStyle(fontSize: 12, color: Theme.of(context).colorScheme.onSurface), // small text
-                      ),
-                      style: TextButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-                        // side: BorderSide(color: Theme.of(context).colorScheme.onSurface), // 👈 border here
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8), // optional: rounded corners
+                    GestureDetector(
+                      onTap: onEdit,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: Text(
+                          'Edit',
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSurface), // small text
                         ),
                       ),
                     ),
-                    TextButton.icon(
-                      onPressed: onDelete,
-                      // icon: const Icon(Icons.filter_list, size: 16),
-                      label: Text(
-                        'Delete',
-                        style: TextStyle(fontSize: 12, color: Theme.of(context).colorScheme.onSurface), // small text
-                      ),
-                      style: TextButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-                        // side: BorderSide(color: Theme.of(context).colorScheme.onSurface), // 👈 border here
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8), // optional: rounded corners
+                    GestureDetector(
+                      onTap: onDelete,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: Text(
+                          'Delete',
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSurface), // small text
                         ),
                       ),
-                    ),
-                    Visibility(
-                      visible: false,
-                      child: IconButton(
-                          onPressed: onEdit,
-                          icon: const Icon(Icons.edit)),
-                    ),
-                    Visibility(
-                      visible: false,
-                      child: IconButton(
-                          onPressed: onDelete,
-                          icon: const Icon(Icons.delete)),
                     ),
                   ],
                 )
               ],
             ),
-
           ],
         ),
       ),

@@ -46,47 +46,39 @@ class TaskListWidget extends StatelessWidget {
       // shadowColor: Colors.grey.shade400,
       elevation: 4,
       actions: [
-        TextButton.icon(
-          onPressed: () {
+        GestureDetector(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: Text(
+              'Toggle Day/Night',
+              style: TextStyle(fontSize: 12, color: Theme.of(context).colorScheme.onSurface), // small text
+            ),
+          ),
+          onTap: () {
             if(Get.isDarkMode){
               Get.changeThemeMode(ThemeMode.light);
             }else{
               Get.changeThemeMode(ThemeMode.dark);
             }
-          },
-          label: Text(
-            'Toggle Day/Night',
-            style: TextStyle(fontSize: 12, color: Theme.of(context).colorScheme.onSurface), // small text
-          ),
-          style: TextButton.styleFrom(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 0),
 
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8), // optional: rounded corners
-            ),
-          ),
+          },
         ),
         Container(
           width: 2,
           color: Colors.red,
           height: 20,
         ),
-        TextButton.icon(
-          onPressed: () {
-            openFilterAndSortDialog(context);
-          },
-          // icon: const Icon(Icons.filter_list, size: 16),
-          label: Text(
-            'Filter/Sort',
-            style: TextStyle(fontSize: 12, color: Theme.of(context).colorScheme.onSurface), // small text
-          ),
-          style: TextButton.styleFrom(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 0),
-            // side: BorderSide(color: Theme.of(context).colorScheme.onSurface), // 👈 border here
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8), // optional: rounded corners
+        GestureDetector(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: Text(
+              'Filter/Sort',
+              style: TextStyle(fontSize: 12, color: Theme.of(context).colorScheme.onSurface), // small text
             ),
           ),
+          onTap: () {
+            openFilterAndSortDialog(context);
+          },
         ),
       ],
         bottom: const PreferredSize(
