@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:taskit/data/models/task_item.dart';
-import 'package:taskit/domain/task_repository.dart';
+import 'package:taskit/domain/entities/task_item.dart';
+import 'package:taskit/domain/repositories/task_repository.dart';
 
 class TasksController extends GetxController {
   final TaskRepository tasksRepository = Get.find<TaskRepository>();
@@ -26,7 +26,6 @@ class TasksController extends GetxController {
   }
 
   Future<void> addTask(TaskItem taskItem) async {
-    print(taskItem.toJson());
     await tasksRepository.addTask(taskItem);
     await fetchTasksFromDevice();
   }

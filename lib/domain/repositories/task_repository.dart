@@ -1,4 +1,5 @@
-import 'package:taskit/data/models/task_item.dart';
+
+import 'package:taskit/domain/entities/task_item.dart';
 
 abstract class TaskRepository {
     /// Fetch all tasks

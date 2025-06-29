@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:taskit/data/models/task_item.dart';
+import 'package:taskit/domain/entities/task_item.dart';
 
 class ConfirmDialog extends StatelessWidget {
   final String title;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:taskit/data/models/task_item.dart';
+import 'package:taskit/domain/entities/task_item.dart';
 import 'package:taskit/presentation/controller/TasksController.dart';
 
 class AddTaskForm extends StatefulWidget {
