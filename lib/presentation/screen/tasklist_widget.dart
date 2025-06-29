@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
-import 'package:taskit/data/task_item.dart';
+import 'package:taskit/data/models/task_item.dart';
 import 'package:taskit/domain/task_repository.dart';
 import 'package:taskit/presentation/controller/TasksController.dart';
 import 'package:taskit/presentation/screen/dialog/task_add_task_dialog.dart';

@@ -1,41 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:taskit/data/task_item.dart';
+import 'package:taskit/data/models/task_item.dart';
 import 'package:taskit/presentation/controller/TasksController.dart';
 
 class AddTaskForm extends StatefulWidget {
-
-   TasksController tasksController = Get.find();
-
-   AddTaskForm();
+  const AddTaskForm({Key? key}) : super(key: key);
 
   @override
   _AddTaskFormState createState() => _AddTaskFormState();
-
 }
 
 class _AddTaskFormState extends State<AddTaskForm> {
-
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _titleController = TextEditingController();
-  final TextEditingController _noteController = TextEditingController();
+  final _titleController = TextEditingController();
+  final _noteController = TextEditingController();
+  final _tasksController = Get.find<TasksController>();
   DateTime _selectedDate = DateTime.now();
-  final TasksController tasksController = Get.find();
 
-  init(){
+  @override
+  void initState() {
+    super.initState();
     _titleController.text = "Simple Title";
     _noteController.text = "Simple Note";
   }
 
+  @override
+  void dispose() {
+    _titleController.dispose();
+    _noteController.dispose();
+    super.dispose();
+  }
+
   Future<void> _pickDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
+    final picked = await showDatePicker(
       context: context,
       initialDate: _selectedDate,
-      firstDate: DateTime(2000),
+      firstDate: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day),
       lastDate: DateTime(2100),
     );
 
-    if (picked != null && picked != _selectedDate) {
+    if (picked != null) {
       setState(() {
         _selectedDate = picked;
       });
@@ -43,28 +47,24 @@ class _AddTaskFormState extends State<AddTaskForm> {
   }
 
   void _submitForm() {
-    if (_formKey.currentState!.validate() && _selectedDate != null) {
-      final title = _titleController.text;
-      final note = _noteController.text;
-      final date = _selectedDate;
-
-      // You can now use `title` and `date` to create a task
-      print("Task Added: $title on $date");
-
-      tasksController.addTask(TaskItem(
-          id: DateTime.now().toString(),
-          title: title,
-          note: note,
-          dueDate: date,
-          createdOn: DateTime.now(),
-          completedStatus: false)
+    if (_formKey.currentState!.validate()) {
+      final task = TaskItem(
+        id: DateTime.now().toIso8601String(),
+        title: _titleController.text,
+        note: _noteController.text,
+        dueDate: _selectedDate,
+        createdOn: DateTime.now(),
+        completedStatus: false,
       );
+
+      _tasksController.addTask(task);
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Task Added at ${DateTime.now()}')),
       );
+
+      Navigator.of(context).pop(); // Close the dialog
     } else {
-      // Show some error if date is not selected
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Please complete all fields')),
       );
@@ -73,54 +73,50 @@ class _AddTaskFormState extends State<AddTaskForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
+    return Dialog(
+      key: const Key('add_task_dialog'),
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
         child: Form(
           key: _formKey,
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              // Title Input
               TextFormField(
+                key: const Key('title_field'),
                 controller: _titleController,
                 decoration: const InputDecoration(labelText: 'Task Title'),
                 validator: (value) =>
-                value == null || value.isEmpty ? 'Enter a title' : null,
+                (value == null || value.isEmpty) ? 'Enter a title' : null,
               ),
               const SizedBox(height: 16),
-      
               TextFormField(
+                key: const Key('note_field'),
                 controller: _noteController,
-                decoration: const InputDecoration(labelText: 'Note Attachment:'),
+                keyboardType: TextInputType.multiline,
+                maxLines: null,
+                decoration: const InputDecoration(labelText: 'Task Note'),
                 validator: (value) =>
-                value == null || value.isEmpty ? 'Add a note:' : null,
+                (value == null || value.isEmpty) ? 'Enter a note' : null,
               ),
               const SizedBox(height: 16),
-      
-              // Date Picker
               InkWell(
+                key: const Key('date_picker'),
                 onTap: () => _pickDate(context),
                 child: InputDecorator(
-                  decoration: InputDecoration(
-                    labelText: 'Select Date',
+                  decoration: const InputDecoration(
+                    labelText: 'Due Date',
                     border: OutlineInputBorder(),
                   ),
                   child: Text(
-                    _selectedDate != null
-                        ? "${_selectedDate!.toLocal()}".split(' ')[0]
-                        : 'No date selected',
-                    style: TextStyle(
-                      color: _selectedDate != null
-                          ? Colors.black87
-                          : Colors.grey[600],
-                    ),
+                    _selectedDate.toLocal().toString().split(' ')[0],
+                    style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
                   ),
                 ),
               ),
               const SizedBox(height: 24),
-      
-              // Submit Button
               ElevatedButton(
+                key: const Key('submit_button'),
                 onPressed: _submitForm,
                 child: const Text('Save Task to Device'),
               ),
@@ -132,6 +128,10 @@ class _AddTaskFormState extends State<AddTaskForm> {
   }
 }
 
-showAddDialog(BuildContext context){
-  showDialog(context: context, builder: (context) => AddTaskForm());
+// Show dialog with key
+void showAddDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (_) => const AddTaskForm(),
+  );
 }

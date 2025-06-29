@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:taskit/data/task_item.dart';
+import 'package:taskit/data/models/task_item.dart';
 import 'package:taskit/presentation/controller/TasksController.dart';
 import 'package:taskit/presentation/screen/widgets/text_widget.dart';
 

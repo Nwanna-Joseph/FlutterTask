@@ -1,5 +1,5 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:taskit/data/task_item.dart';
+import 'package:taskit/data/models/task_item.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:taskit/domain/task_repository.dart';
 

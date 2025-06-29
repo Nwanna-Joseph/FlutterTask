@@ -3,7 +3,6 @@ import 'package:taskit/data/repository/task_repository_impl.dart';
 import 'package:taskit/domain/task_repository.dart';
 import 'package:taskit/presentation/controller/TasksController.dart';
 import 'package:taskit/presentation/screen/tasklist_widget.dart';
-import 'package:taskit/storage/fixed_data.dart';
 import 'package:get/get.dart';
 
 void main() {

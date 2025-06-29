@@ -2,8 +2,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:taskit/data/models/task_item.dart';
 import 'package:taskit/data/repository/task_repository_impl.dart';
-import 'package:taskit/data/task_item.dart';
 import 'package:taskit/domain/task_repository.dart';
 
 class MockFlutterSecureStorage extends Mock implements FlutterSecureStorage {}

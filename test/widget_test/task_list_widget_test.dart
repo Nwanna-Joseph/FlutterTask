@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:taskit/data/models/task_item.dart';
 
-import 'package:taskit/data/task_item.dart';
 import 'package:taskit/domain/task_repository.dart';
 import 'package:taskit/presentation/screen/tasklist_widget.dart';
 
