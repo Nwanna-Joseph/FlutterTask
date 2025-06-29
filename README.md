@@ -162,5 +162,7 @@ Testing the APK on multiple devices using firebase Test Lab:
 
 #### Image 2 (Report from my firebase console):
 ![b.png](imgs%2Fb.png)
+#### Video walkthrough
+![https://youtube.com/shorts/Au0n1mrPsAk](https://youtube.com/shorts/Au0n1mrPsAk)
 
 
