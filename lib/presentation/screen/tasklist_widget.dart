@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 import 'package:taskit/domain/entities/task_item.dart';
-import 'package:taskit/presentation/controller/TasksController.dart';
+import 'package:taskit/presentation/controller/tasks_controller.dart';
 import 'package:taskit/presentation/screen/dialog/task_add_task_dialog.dart';
 import 'package:taskit/presentation/screen/dialog/task_delete_dialog.dart';
 import 'package:taskit/presentation/screen/dialog/task_edit_task_dialog.dart';
 import 'package:taskit/presentation/screen/dialog/tasks_list_filter.dart';
 import 'package:taskit/presentation/screen/widgets/text_widget.dart';
 import 'package:taskit/presentation/screen/widgets/task_card.dart';
-import 'package:taskit/data/repository/task_repository_impl.dart';
 
 class TaskListWidget extends StatelessWidget {
   final TasksController tasksController = Get.put(TasksController());
@@ -41,9 +39,6 @@ class TaskListWidget extends StatelessWidget {
                 : LinearGradient(colors: [const Color(0xFFE1BEE7), Colors.grey.shade100])
         ),
       ),
-      // backgroundColor: Colors.red,
-      // foregroundColor: Colors.white,
-      // shadowColor: Colors.grey.shade400,
       elevation: 4,
       actions: [
         GestureDetector(
@@ -102,16 +97,9 @@ class TaskListWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // noTasksFound(),
-            // refreshing(),
-          ],
-        ),
         Expanded(
             child: Obx(() => tasksList(context,
-                tasksController.filteredAndSortedResults.value.toList())))
+                tasksController.filteredAndSortedResults.toList())))
       ],
     );
   }
@@ -121,20 +109,10 @@ class TaskListWidget extends StatelessWidget {
   }
 
   Widget tasksList(BuildContext context, List<TaskItem> tasks) {
-    // return Text("ok :${tasks.length}");
-
     return ListView.builder(
       itemCount: tasks.length,
       itemBuilder: (contextIn, index) {
         return listItem(context, tasks[index]);
-        return AnimationConfiguration.staggeredList(
-            position: index,
-            duration: const Duration(milliseconds: 375),
-            child: SlideAnimation(
-                horizontalOffset: 50.0,
-                verticalOffset: 10,
-                child:
-                    FadeInAnimation(child: listItem(context, tasks[index]))));
       },
     );
   }
@@ -146,78 +124,11 @@ class TaskListWidget extends StatelessWidget {
     onEdit: () {
       openEditDialog(context, task);
     },);
-    return ListTile(
-      leading: task.completedStatus == true ? const Icon(Icons.check) : const Icon(Icons.warning),
-      title: Text("${task.title}",),
-      trailing: Wrap(
-        spacing: 0,
-        children: [
-          TextButton.icon(
-            onPressed: () {
-              openEditDialog(context, task);
-            },
-            // icon: const Icon(Icons.filter_list, size: 16),
-            label: Text(
-              'Edit',
-              style: TextStyle(fontSize: 12, color: Theme.of(context).colorScheme.onSurface), // small text
-            ),
-            style: TextButton.styleFrom(
-              padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-              // side: BorderSide(color: Theme.of(context).colorScheme.onSurface), // 👈 border here
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8), // optional: rounded corners
-              ),
-            ),
-          ),
-          TextButton.icon(
-            onPressed: () {
-              openDeleteDialog(context, task);
-            },
-            // icon: const Icon(Icons.filter_list, size: 16),
-            label: Text(
-              'Delete',
-              style: TextStyle(fontSize: 12, color: Theme.of(context).colorScheme.onSurface), // small text
-            ),
-            style: TextButton.styleFrom(
-              padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-              // side: BorderSide(color: Theme.of(context).colorScheme.onSurface), // 👈 border here
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8), // optional: rounded corners
-              ),
-            ),
-          ),
-          Visibility(
-            visible: false,
-            child: IconButton(
-                onPressed: () {
-                  openEditDialog(context, task);
-                },
-                icon: const Icon(Icons.edit)),
-          ),
-          Visibility(
-            visible: false,
-            child: IconButton(
-                onPressed: () {
-                  openDeleteDialog(context, task);
-                },
-                icon: const Icon(Icons.delete)),
-          ),
-        ],
-      ),
-      onTap: () {
-        // Handle item tap if needed
-        // ScaffoldMessenger.of(context).showSnackBar(
-        //   SnackBar(content: Text('Tapped on: ${task.title}')),
-        // );
-      },
-    );
   }
 
   Widget refreshing() {
-    return Container(
-      child: Center(
-        child: CircularProgressIndicator(),
-      ),
+    return const Center(
+      child: CircularProgressIndicator(),
     );
   }
 

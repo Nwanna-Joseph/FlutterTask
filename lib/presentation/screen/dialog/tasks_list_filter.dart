@@ -41,7 +41,7 @@ class _FilterSortDialogState extends State<FilterSortDialog> {
           // Filter Dropdown
           DropdownButtonFormField<String>(
             value: _selectedFilter,
-            decoration: InputDecoration(labelText: 'Filter by'),
+            decoration: const InputDecoration(labelText: 'Filter by'),
             items: filterOptions.map((String option) {
               return DropdownMenuItem(value: option, child: Text(option));
             }).toList(),
@@ -51,12 +51,12 @@ class _FilterSortDialogState extends State<FilterSortDialog> {
               });
             },
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
 
           // Sort Dropdown
           DropdownButtonFormField<String>(
             value: _selectedSort,
-            decoration: InputDecoration(labelText: 'Sort by'),
+            decoration: const InputDecoration(labelText: 'Sort by'),
             items: sortOptions.map((String option) {
               return DropdownMenuItem(value: option, child: Text(option));
             }).toList(),
@@ -70,11 +70,11 @@ class _FilterSortDialogState extends State<FilterSortDialog> {
       ),
       actions: [
         TextButton(
-          child: Text('Cancel'),
+          child: const Text('Cancel'),
           onPressed: () => Navigator.of(context).pop(),
         ),
         ElevatedButton(
-          child: Text('Apply'),
+          child: const Text('Apply'),
           onPressed: () {
             Navigator.of(context).pop();
             widget.onApply(_selectedFilter, _selectedSort);

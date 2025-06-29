@@ -7,11 +7,11 @@ class ConfirmDialog extends StatelessWidget {
   final VoidCallback onConfirm;
 
   const ConfirmDialog({
-    Key? key,
+    super.key,
     required this.title,
     required this.description,
     required this.onConfirm,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,13 +20,13 @@ class ConfirmDialog extends StatelessWidget {
       content: Text(description),
       actions: [
         TextButton(
-          child: Text('Cancel'),
+          child: const Text('Cancel'),
           onPressed: () {
             Navigator.of(context).pop(); // Dismiss dialog
           },
         ),
         ElevatedButton(
-          child: Text('Confirm'),
+          child: const Text('Confirm'),
           onPressed: () {
             Navigator.of(context).pop(); // Close dialog
             onConfirm(); // Execute callback

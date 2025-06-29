@@ -8,11 +8,11 @@ class TaskCard extends StatelessWidget {
   final VoidCallback? onDelete;
 
   const TaskCard({
-    Key? key,
+    super.key,
     required this.taskItem,
     this.onEdit,
     this.onDelete,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +72,7 @@ class TaskCard extends StatelessWidget {
                     fontWeight: FontWeight.w300,
                   ),
                 ),
-                Expanded(child: SizedBox()),
+                const Expanded(child: SizedBox()),
                 Wrap(
                   spacing: 0,
                   children: [

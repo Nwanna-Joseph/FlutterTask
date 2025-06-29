@@ -2,15 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:taskit/domain/entities/task_item.dart';
-
 import 'package:taskit/presentation/screen/tasklist_widget.dart';
-
-import 'package:taskit/presentation/controller/TasksController.dart';
-
 import 'package:taskit/domain/repositories/task_repository.dart';
-
 import 'package:taskit/data/models/task_models.dart';
+import 'package:taskit/presentation/controller/tasks_controller.dart';
 
 class MockTaskRepository extends Mock implements TaskRepository {}
 

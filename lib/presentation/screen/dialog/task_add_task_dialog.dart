@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taskit/domain/entities/task_item.dart';
-import 'package:taskit/presentation/controller/TasksController.dart';
+import 'package:taskit/presentation/controller/tasks_controller.dart';
 
 class AddTaskForm extends StatefulWidget {
-  const AddTaskForm({Key? key}) : super(key: key);
+  const AddTaskForm({super.key});
 
   @override
-  _AddTaskFormState createState() => _AddTaskFormState();
+  createState() => _AddTaskFormState();
 }
 
 class _AddTaskFormState extends State<AddTaskForm> {
