@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:taskit/data/repository/task_repository_impl.dart';
+import 'package:taskit/domain/task_repository.dart';
 import 'package:taskit/presentation/controller/TasksController.dart';
 import 'package:taskit/presentation/screen/tasklist_widget.dart';
 import 'package:taskit/storage/fixed_data.dart';
 import 'package:get/get.dart';
 
 void main() {
-
+  Get.lazyPut<TaskRepository>(() => TaskRepositoryImpl());
   runApp(MyApp());
 }
 
@@ -14,8 +16,71 @@ class MyApp extends StatelessWidget {
   TasksController tasksController = Get.put(TasksController());
   MyApp({super.key});
 
+  final lightTheme = ThemeData(
+    brightness: Brightness.light,
+    primarySwatch: Colors.blue,
+    scaffoldBackgroundColor: Colors.white,
+    textTheme: TextTheme(
+      bodyMedium: TextStyle(color: Colors.black),
+    ),
+    useMaterial3: true,
+  );
+
+  final darkTheme = ThemeData.dark().copyWith(
+    scaffoldBackgroundColor: Colors.black,
+    textTheme: TextTheme(
+      bodyMedium: TextStyle(color: Colors.white),
+    ),
+    useMaterial3: true,
+  );
+
+  final ThemeData navyDarkTheme = ThemeData.dark().copyWith(
+    brightness: Brightness.dark,
+    primaryColor: Color(0xFF0A1128), // deep navy blue
+    scaffoldBackgroundColor: Color(0xFF0A1128),
+    appBarTheme: AppBarTheme(
+      backgroundColor: Color(0xFF0D1B2A),
+      foregroundColor: Colors.white,
+      elevation: 4,
+      iconTheme: IconThemeData(color: Colors.white),
+    ),
+    colorScheme: ColorScheme.dark(
+      primary: Color(0xFF001F54),
+      secondary: Color(0xFF133C55),
+      background: Color(0xFF0A1128),
+      surface: Color(0xFF1C2541),
+      onPrimary: Colors.white,
+      onSecondary: Colors.white,
+      onBackground: Colors.white,
+      onSurface: Colors.white,
+    ),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: Color(0xFF133C55),
+      foregroundColor: Colors.white,
+    ),
+    textTheme: ThemeData.dark().textTheme.apply(
+      bodyColor: Colors.white,
+      displayColor: Colors.white70,
+    ),
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(
+        foregroundColor: Colors.white, // icon + text color
+        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        textStyle: TextStyle(fontSize: 12),
+      ),
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        // backgroundColor: Colors.green.shade700,
+        foregroundColor: Colors.white,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      ),
+    ),
+  );
+
   init(){
-    // Get.changeTheme(ThemeData.dark());
+    Get.changeTheme(ThemeData.dark());
     // Get.changeTheme(ThemeData.light());
   }
 
@@ -24,25 +89,28 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      debugShowCheckedModeBanner: false,
+      theme: lightTheme,
+      darkTheme: navyDarkTheme,
+      // theme: ThemeData(
+      //   // This is the theme of your application.
+      //   //
+      //   // TRY THIS: Try running your application with "flutter run". You'll see
+      //   // the application has a purple toolbar. Then, without quitting the app,
+      //   // try changing the seedColor in the colorScheme below to Colors.green
+      //   // and then invoke "hot reload" (save your changes or press the "hot
+      //   // reload" button in a Flutter-supported IDE, or press "r" if you used
+      //   // the command line to start the app).
+      //   //
+      //   // Notice that the counter didn't reset back to zero; the application
+      //   // state is not lost during the reload. To reset the state, use hot
+      //   // restart instead.
+      //   //
+      //   // This works for code too, not just values: Most code changes can be
+      //   // tested with just a hot reload.
+      //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+      //   useMaterial3: true,
+      // ),
       home: TaskListWidget(),
     );
   }

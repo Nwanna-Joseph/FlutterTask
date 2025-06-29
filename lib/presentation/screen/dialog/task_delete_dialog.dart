@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:taskit/data/task_item.dart';
 
 class ConfirmDialog extends StatelessWidget {
   final String title;
@@ -36,12 +37,12 @@ class ConfirmDialog extends StatelessWidget {
   }
 }
 
-showDeleteDialog(BuildContext context, VoidCallback onDelete) {
+showDeleteDialog(BuildContext context, TaskItem task, VoidCallback onDelete) {
   showDialog(
     context: context,
     builder: (context) => ConfirmDialog(
       title: 'Delete Task',
-      description: 'Are you sure you want to delete this task?',
+      description: 'Are you sure you want to delete ${task.title}?',
       onConfirm: onDelete,
     ),
   );

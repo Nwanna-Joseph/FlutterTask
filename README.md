@@ -28,9 +28,9 @@ A Simple Task Management App
 17. Use proper state management library: Done; tested
 18. Filter tasks by status: All, Active, Completed ; Done;  tested
 19. Sort tasks by due date or creation date ; Done; tested
-
-20. Responsive and polished UI with light/dark themes; Done; not tested
-21. Basic animations for task actions; Done; Not tested
+20. 
+20. Responsive and polished UI with light/dark themes; Done; tested
+21. Basic animations for task actions; Done; tested
 
 ## Getting Started
 

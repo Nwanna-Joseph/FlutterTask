@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taskit/data/task_item.dart';
 import 'package:taskit/presentation/controller/TasksController.dart';
+import 'package:taskit/presentation/screen/widgets/text_widget.dart';
 
 class EditTaskForm extends StatefulWidget {
 
@@ -59,6 +60,9 @@ class _EditTaskFormState extends State<EditTaskForm> {
           createdOn: widget.taskItem.createdOn,
           completedStatus: false )
       );
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Task Edited at ${DateTime.now()}')),
+      );
       Get.back();
     } else {
       // Show some error if date is not selected
@@ -72,12 +76,18 @@ class _EditTaskFormState extends State<EditTaskForm> {
     widget.taskItem.completedStatus = true;
     tasksController.editTask(widget.taskItem);
     Get.back();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Marked task as completed at ${DateTime.now()}')),
+    );
   }
 
   void markAsUncompleted(){
     widget.taskItem.completedStatus = false;
     tasksController.editTask(widget.taskItem);
     Get.back();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Marked task as ongoing at ${DateTime.now()}')),
+    );
   }
 
   @override
@@ -90,6 +100,8 @@ class _EditTaskFormState extends State<EditTaskForm> {
           child: Column(
             children: [
               // Title Input
+              Padding(padding: EdgeInsets.symmetric(horizontal: 0, vertical: 10),
+              child:  boldText("Edit Task"),),
               TextFormField(
                 controller: widget._titleController,
                 decoration: const InputDecoration(labelText: 'Task Title'),
@@ -119,37 +131,49 @@ class _EditTaskFormState extends State<EditTaskForm> {
                         ? "${widget._selectedDate!.toLocal()}".split(' ')[0]
                         : 'No date selected',
                     style: TextStyle(
-                      color: widget._selectedDate != null
-                          ? Colors.black87
-                          : Colors.grey[600],
+                      color: Theme.of(context).colorScheme.onSurface
                     ),
                   ),
                 ),
               ),
               const SizedBox(height: 24),
 
-              // Submit Button
-              ElevatedButton(
-                onPressed: _submitForm,
-                child: const Text('Save Update to Device'),
-              ),
-              const SizedBox(height: 24),
 
-              Visibility(
-                visible: widget.taskItem.completedStatus == false,
-                child: ElevatedButton(
-                  onPressed: markAsCompleted,
-                  child: const Text('Mark task as Completed'),
-                ),
-              ),
 
-              Visibility(
-                visible: widget.taskItem.completedStatus == true,
-                child: ElevatedButton(
-                  onPressed: markAsUncompleted,
-                  child: const Text('Mark task as Uncompleted'),
-                ),
-              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  // Submit Button
+                  ElevatedButton(
+                    onPressed: _submitForm,
+                    child: Text('Save ', style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSurface
+                    )),
+
+                  ),
+
+                  Visibility(
+                    visible: widget.taskItem.completedStatus == false,
+                    child: ElevatedButton(
+                      onPressed: markAsCompleted,
+                      child: Text('Mark task as completed', style: TextStyle(
+                          color: Theme.of(context).colorScheme.onSurface
+                      )),
+                    ),
+                  ),
+
+                  Visibility(
+                    visible: widget.taskItem.completedStatus == true,
+                    child: ElevatedButton(
+                      onPressed: markAsUncompleted,
+                      child: Text('Mark task as ongoing', style: TextStyle(
+                          color: Theme.of(context).colorScheme.onSurface
+                      )),
+
+                    ),
+                  ),
+                ],
+              )
             ],
           ),
         ),

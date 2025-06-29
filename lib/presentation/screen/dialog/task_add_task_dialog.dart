@@ -60,6 +60,9 @@ class _AddTaskFormState extends State<AddTaskForm> {
           completedStatus: false)
       );
 
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Task Added at ${DateTime.now()}')),
+      );
     } else {
       // Show some error if date is not selected
       ScaffoldMessenger.of(context).showSnackBar(
