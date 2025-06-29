@@ -1,13 +1,13 @@
-# taskit
+# Task it; A simple Task Manager App written with Flutter
 
 A Simple Task Management App
 
-## Phases
+## Development Phases
 ### A:
 1. Set up folders
 2. Create Classes
 3. Implement UIs
-4. Add Repository
+4. Add Repositories
 
 ### B:
 6. Couple the classes
@@ -18,21 +18,20 @@ A Simple Task Management App
 9. Beutify UI
 10. Write Tests
 
-### D:
-11. Add : Done; tested
-12. Delete : Done; tested
-13. Edit : Done; tested
-14. Display Tasks: Done; tested
-15. Mark Tasks as complete: Done; tested
-16. Store Locally: Done; tested
-17. Use proper state management library: Done; tested
-18. Filter tasks by status: All, Active, Completed ; Done;  tested
-19. Sort tasks by due date or creation date ; Done; tested
-20. 
-20. Responsive and polished UI with light/dark themes; Done; tested
-21. Basic animations for task actions; Done; tested
+## Milestones:
+1. Add Task [Done; Tested]
+2. Delete Task [Done; Tested]
+3. Edit Task [Done; Tested]
+4. Display Tasks [Done; Tested]
+5. Mark Tasks as completed [Done; Tested]
+6. Store Locally [Done; Tested]
+7. Use proper state management library (GetX) [Done; Tested]
+8. Filter tasks by status: All, Active, Completed [Done; Tested]
+9. Sort tasks by due date or creation date [Done; Tested] 
+10. Responsive and polished UI with light/dark themes [Done; Tested]
+11. Basic animations for task actions [Done; Tested]
 
-## Getting Started
+## Instructions
 
 ### Build APK:
 ```
