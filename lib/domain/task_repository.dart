@@ -1,25 +1,37 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:taskit/data/task_item.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class TaskRepository {
 
-    static const storageService = FlutterSecureStorage();
+    FlutterSecureStorage storage;
 
-    Future<Map<String, String>> getTasks(){
-        return storageService.readAll(
-        );
+    TaskRepository({ this.storage  = const FlutterSecureStorage() } );
+
+    /// Fetch all tasks as a map of id -> jsonString
+    Future<Map<String, String>> getTasks() async {
+        return await storage.readAll();
     }
 
-    Future addTask(TaskItem task){
-        return storageService.write(key: task.id, value: task.toJson() );
+    /// Add a task by writing its JSON to secure storage
+    Future<void> addTask(TaskItem task) async {
+        await storage.write(key: task.id, value: task.toJson());
     }
 
-    Future removeTask(TaskItem task){
-        return storageService.delete(key: task.id);
+    /// Remove a task by its id
+    Future<void> removeTask(TaskItem task) async {
+        await storage.delete(key: task.id);
     }
 
-    Future editTasks(TaskItem task){
-        return storageService.write(key: task.id, value: task.toJson() );
+    /// Edit task is same as add (overwrite)
+    Future<void> editTask(TaskItem task) async {
+        await storage.write(key: task.id, value: task.toJson());
     }
 
+    /// Get a single task
+    Future<TaskItem?> getTaskById(String id) async {
+        final json = await storage.read(key: id);
+        if (json == null) return null;
+        return TaskItem.fromJson(json);
+    }
 }
